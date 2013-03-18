@@ -30,5 +30,5 @@ package ptstemmer
 // A stemmer should be able to, given a word, return its stem in a
 // deterministic way.
 type Stemmer interface {
-    Stem (word string) string
+    Stem(word string) string
 }

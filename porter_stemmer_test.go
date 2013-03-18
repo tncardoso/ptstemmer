@@ -27,16 +27,16 @@
 package ptstemmer
 
 import (
-    "testing"
+    "bufio"
     "io"
     "os"
-    "bufio"
     "strings"
+    "testing"
 )
 
 // Test if vowels with diacritics are being correctly idenfied as
 // vowels.
-func TestVowels (t *testing.T) {
+func TestVowels(t *testing.T) {
     ps := NewPorterStemmer()
     vowels := "aeiouáéíóúâêô"
     notVowels := "nlpqrxzcvbnm"
@@ -55,10 +55,10 @@ func TestVowels (t *testing.T) {
 
 // TestR checks if the remainder regions R1 and R2 are correctly
 // identified.
-func TestR (t *testing.T) {
+func TestR(t *testing.T) {
     var cases = []struct {
         word string
-        r string
+        r    string
     }{
         {"animadversion", "imadversion"},
         {"imadversion", "adversion"},
@@ -86,12 +86,12 @@ func TestR (t *testing.T) {
 
 // TestRV checks if the portuguese description of RV is correctly
 // implemented.
-func TestRV (t *testing.T) {
+func TestRV(t *testing.T) {
     // Some of these test cases are in spanish since that the RV
     // algorithm is the same.
     var cases = []struct {
         word string
-        r string
+        r    string
     }{
         {"macho", "ho"},
         {"trabajo", "bajo"},
@@ -112,24 +112,24 @@ func TestRV (t *testing.T) {
 
 // TestStemmer checks if some words are being correctly stemmed. Most of
 // this words fall in specific corner cases.
-func TestStemmer (t *testing.T) {
+func TestStemmer(t *testing.T) {
     var stemCases = []struct {
         word string
         stem string
     }{
-        { "á", "á" },
-        { "ajuda", "ajud" },
-        { "ajudá", "ajud" },
-        { "ajudado", "ajud" },
-        { "ajudou", "ajud" },
-        { "abafaram", "abaf" },
-        { "abaixa", "abaix" },
-        { "abraçada", "abrac" },
-        { "adequadamente", "adequ" },
-        { "aérea", "aér" },
-        { "anatomicamente", "anatom" },
-        { "cheira", "cheir" },
-        { "ôôiii", "ôôiii" },
+        {"á", "á"},
+        {"ajuda", "ajud"},
+        {"ajudá", "ajud"},
+        {"ajudado", "ajud"},
+        {"ajudou", "ajud"},
+        {"abafaram", "abaf"},
+        {"abaixa", "abaix"},
+        {"abraçada", "abrac"},
+        {"adequadamente", "adequ"},
+        {"aérea", "aér"},
+        {"anatomicamente", "anatom"},
+        {"cheira", "cheir"},
+        {"ôôiii", "ôôiii"},
     }
 
     ps := NewPorterStemmer()
@@ -138,7 +138,7 @@ func TestStemmer (t *testing.T) {
         r := ps.Stem(c.word)
         if r != c.stem {
             t.Errorf("Invalid stem. word= %s expected= %s actual= %s",
-            c.word, c.stem, r)
+                c.word, c.stem, r)
         }
     }
 }
@@ -148,7 +148,7 @@ func TestStemmer (t *testing.T) {
 // following format:
 //
 //      [original_word] [expected_stem]
-func TestFile (t *testing.T) {
+func TestFile(t *testing.T) {
     ip, err := os.Open("testdata/ptstems.txt")
     if err != nil {
         t.Errorf("Could not open test file: testdata/ptstems.txt")
@@ -173,7 +173,7 @@ func TestFile (t *testing.T) {
         res := ps.Stem(word)
         if res != stem {
             t.Errorf("Invalid stem. word= %s expected= %s actual= %s",
-            word, stem, res)
+                word, stem, res)
             break
         }
     }

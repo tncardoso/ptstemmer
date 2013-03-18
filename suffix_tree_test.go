@@ -31,7 +31,7 @@ import (
 )
 
 // Checks if fluent pattern is working correctly for the Add function.
-func TestFluent (t *testing.T) {
+func TestFluent(t *testing.T) {
     st := newSuffixTree()
 
     st.Add("horse", 0).Add("banana", 1).Add("dog", 2)
@@ -49,13 +49,13 @@ func TestFluent (t *testing.T) {
 
 // Checks if words are being correctly inserted and retrieved from the
 // suffix tree.
-func TestContains (t *testing.T) {
+func TestContains(t *testing.T) {
     addedWords := []string{
         "horse",
         "banana",
         "ana",
         "ban",
-        "dog" }
+        "dog"}
     notAddedWords := []string{
         "hor",
         "bana",
@@ -84,7 +84,7 @@ func TestContains (t *testing.T) {
 
 // Checks if the longest suffix is being correctly retrieved from the
 // suffix tree.
-func TestLongestSuffix (t *testing.T) {
+func TestLongestSuffix(t *testing.T) {
     addedWords := []string{
         "ismos",
         "a",
@@ -93,9 +93,9 @@ func TestLongestSuffix (t *testing.T) {
         "ia"}
 
     var cases = []struct {
-        word string
+        word   string
         suffix string
-        group int
+        group  int
     }{
         {"algoritmos", "", -1},
         {"algorismos", "ismos", 1},

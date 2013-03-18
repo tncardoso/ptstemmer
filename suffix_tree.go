@@ -33,9 +33,9 @@ import (
 // A node in the suffix tree. It stores the children of this node along
 // with the word, if existent, that finishes in this node.
 type node struct {
-    children    map[rune]*node      // Edges leaving this node.
-    word        string              // Word completed in this node.
-    group       int                 // Group of this word
+    children map[rune]*node // Edges leaving this node.
+    word     string         // Word completed in this node.
+    group    int            // Group of this word
 }
 
 // A suffix tree used to identify the longest known suffix in a given
@@ -43,11 +43,11 @@ type node struct {
 // identifier is used to choose which action should be taken in the
 // stemming process. 
 type suffixTree struct {
-    root    *node                   // Root node of suffix tree
+    root *node // Root node of suffix tree
 }
 
 // Create a new tree node with default values.
-func newNode () (*node) {
+func newNode() *node {
     n := new(node)
     n.children = make(map[rune]*node)
     n.word = ""
@@ -56,7 +56,7 @@ func newNode () (*node) {
 }
 
 // Create a new suffix tree with the root node.
-func newSuffixTree () (*suffixTree) {
+func newSuffixTree() *suffixTree {
     t := new(suffixTree)
     t.root = newNode()
     return t
@@ -65,11 +65,11 @@ func newSuffixTree () (*suffixTree) {
 // Add a new suffix to the tree. The word is inserted in reverse order
 // to make it easier to match suffixes. The group value is used to
 // identify the category of the suffix and take the necessary actions.
-func (st *suffixTree) Add (word string, group int) *suffixTree {
+func (st *suffixTree) Add(word string, group int) *suffixTree {
     cnode := st.root
     runes := []rune(word)
 
-    for i := len(runes)-1; i >= 0; i-- {
+    for i := len(runes) - 1; i >= 0; i-- {
         n, ok := cnode.children[runes[i]]
         if ok {
             cnode = n
@@ -86,11 +86,11 @@ func (st *suffixTree) Add (word string, group int) *suffixTree {
 }
 
 // Returns true if a given word is already stored in the suffix tree.
-func (st *suffixTree) Contains (word string) (bool) {
+func (st *suffixTree) Contains(word string) bool {
     cnode := st.root
     runes := []rune(word)
 
-    for i := len(runes)-1; i >= 0; i-- {
+    for i := len(runes) - 1; i >= 0; i-- {
         n, ok := cnode.children[runes[i]]
         if ok {
             cnode = n
@@ -109,15 +109,15 @@ func (st *suffixTree) Contains (word string) (bool) {
 // Returns the longest known suffix that matches the given word. If no
 // suffix is found, empty string "" and group id -1 are returned. If a known
 // suffix matches the word, it is returned along with its category id.
-func (st *suffixTree) LongestSuffix (word string) (string, int) {
+func (st *suffixTree) LongestSuffix(word string) (string, int) {
     cnode := st.root
     runes := []rune(word)
 
     currentSuffix := ""
-    currentSuffixSize:= -1
+    currentSuffixSize := -1
     currentSuffixGroup := -1
 
-    for i := len(runes)-1; i >= 0; i-- {
+    for i := len(runes) - 1; i >= 0; i-- {
         n, ok := cnode.children[runes[i]]
         if ok {
             cnode = n
